@@ -4,10 +4,11 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.Executors;
 
+// 多线程使用
 public class MutilThread {
     public static void main(String[] args) {
         MutilThread2 foo = new MutilThread2();
-        foo.start(); //启动程序，程序进入就绪状态
+        foo.start(); // 启动程序，程序进入就绪状态
         java.util.concurrent.ExecutorService executorService = Executors.newFixedThreadPool(2);
         // 可以获取进程的返回值
         java.util.concurrent.Callable<String> callable1 = () -> {
