@@ -4,10 +4,22 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class LockTest {
     public static void main(String[] args) {
         testSemaphore();
+    }
+
+    public static void testReadWriteLock() {
+        ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+        readWriteLock.readLock().lock();
+        System.out.println("读锁获取成功");
+        readWriteLock.readLock().unlock();
+        readWriteLock.writeLock().lock();
+        System.out.println("写锁获取成功");
+        readWriteLock.writeLock().unlock();
     }
 
     public static void testSemaphore() {
@@ -33,7 +45,7 @@ public class LockTest {
 
     }
 
-    public void testReentrantLock() {
+    public static void testReentrantLock() {
         int[] num = { 0 };
         ReentrantLock lock = new ReentrantLock();
 
