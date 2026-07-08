@@ -9,7 +9,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class LockTest {
     public static void main(String[] args) {
-        testSemaphore();
+        testCountDownLatch();
     }
 
     public static void testReadWriteLock() {
@@ -43,6 +43,26 @@ public class LockTest {
         }
         System.out.println("信号量测试完成");
 
+    }
+
+    public static void testCountDownLatch() {
+        java.util.concurrent.CountDownLatch countDownLatch = new java.util.concurrent.CountDownLatch(2);
+        Runnable runnable = () -> {
+            System.out.println("线程" + Thread.currentThread().getName() + "开始");
+            countDownLatch.countDown();
+
+        };
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(2, 2,
+                0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
+        threadPoolExecutor.execute(runnable);
+        threadPoolExecutor.execute(runnable);
+        threadPoolExecutor.shutdown();
+        try {
+            threadPoolExecutor.awaitTermination(5, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("计数器测试完成");
     }
 
     public static void testReentrantLock() {
