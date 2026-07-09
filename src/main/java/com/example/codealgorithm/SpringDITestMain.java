@@ -1,5 +1,6 @@
 package com.example.codealgorithm;
 
+import com.example.codealgorithm.service.AspectService;
 import com.example.codealgorithm.service.UserService;
 import com.example.codealgorithm.service.UserService1;
 import org.springframework.context.ApplicationContext;
@@ -16,7 +17,18 @@ public class SpringDITestMain {
         UserService1 userService1 = context.getBean(UserService1.class);
         userService1.addUser();
 
-        ((ClassPathXmlApplicationContext) context).close();
+        System.out.println("\n========== 通过 main 方法测试切面功能 ==========");
+        AspectService aspectService = context.getBean(AspectService.class);
+        String result = aspectService.point("World");
+        System.out.println("AspectService 返回结果: " + result);
 
+        System.out.println("\n========== 测试切面异常处理 ==========");
+        try {
+            aspectService.pointWithException("Test");
+        } catch (RuntimeException e) {
+            System.out.println("捕获到异常: " + e.getMessage());
+        }
+        
+        ((ClassPathXmlApplicationContext) context).close();
     }
 }
