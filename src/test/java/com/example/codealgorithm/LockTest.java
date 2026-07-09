@@ -9,7 +9,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class LockTest {
     public static void main(String[] args) {
-        testCountDownLatch();
+        // testCountDownLatch();
+        testExeception();
     }
 
     public static void testReadWriteLock() {
@@ -92,5 +93,20 @@ public class LockTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void testExeception() {
+        LockTest lockTest = new LockTest();
+        try {
+            lockTest.testThrow();
+            System.err.println("testExeception throw try 异常");
+        } catch (Exception e) {
+            System.out.println("捕获到异常: " + e.getMessage());
+        }
+    }
+
+    public void testThrow() throws Exception {
+        System.out.println("testThrow throw 异常");
+        throw new Exception("throws 异常");
     }
 }
