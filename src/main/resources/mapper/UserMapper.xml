@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.codealgorithm.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.codealgorithm.entity.User">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="age" property="age" />
+        <result column="email" property="email" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, name, age, email
+    </sql>
+
+    <insert id="insert" parameterType="com.example.codealgorithm.entity.User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO "user" (name, age, email)
+        VALUES (#{name}, #{age}, #{email})
+    </insert>
+
+    <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT
+        <include refid="BaseColumnList"/>
+        FROM "user"
+        WHERE id = #{id}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="BaseColumnList"/>
+        FROM "user"
+    </select>
+
+    <update id="update" parameterType="com.example.codealgorithm.entity.User">
+        UPDATE "user"
+        SET name = #{name},
+            age = #{age},
+            email = #{email}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM "user" WHERE id = #{id}
+    </delete>
+
+    <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="BaseColumnList"/>
+        FROM "user"
+        WHERE name LIKE CONCAT('%', #{name}, '%')
+    </select>
+
+</mapper>
