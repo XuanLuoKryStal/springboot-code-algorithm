@@ -1,0 +1,30 @@
+Spring AI 是 Spring 官方推出的人工智能框架，旨在简化 AI 应用的开发。
+
+主要特性：
+1. 支持多种 AI 模型：OpenAI、Azure OpenAI、Hugging Face 等
+2. 提供统一的 API 接口，简化不同模型之间的切换
+3. 内置 RAG（检索增强生成）支持
+4. 支持向量存储和 Embedding
+5. 提供流式响应和批量处理能力
+
+核心组件：
+- ChatClient：统一的聊天客户端
+- EmbeddingClient：嵌入向量客户端
+- VectorStore：向量存储
+- PromptTemplate：提示词模板
+- ChatMemory：聊天记忆
+
+使用步骤：
+1. 添加 Spring AI 依赖
+2. 配置 AI 服务 API Key
+3. 创建 ChatClient Bean
+4. 使用 ChatClient 进行对话
+5. 配置 RAG 检索增强
+
+RAG 工作原理：
+1. 将文档切分成小块
+2. 将文档块转换为向量嵌入
+3. 将向量存储到向量数据库
+4. 用户提问时，检索相关文档
+5. 将检索到的文档作为上下文传递给 AI 模型
+6. AI 模型根据上下文生成回答
